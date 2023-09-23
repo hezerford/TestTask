@@ -25,3 +25,10 @@ class LessonViewByProductListAPIView(generics.ListAPIView):
         queryset = LessonView.objects.filter(lesson__products__id=product_id, user=user)
         return queryset
     
+class ProductStatListAPIView(generics.ListAPIView):
+    generics_class = ProductStatSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        products = Product.objects.all()
+        return products
