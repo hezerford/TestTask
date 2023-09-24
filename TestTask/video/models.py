@@ -27,7 +27,7 @@ class LessonView(models.Model):
         percents = (viewed_duration / total_duration) * 100
         self.viewed_percentage = round(percents, 2)
 
-        if salf.viewed_percentage >= 80.00:
+        if self.viewed_percentage >= 80.00:
             self.is_viewed = True
         else:
             self.is_viewed = False
