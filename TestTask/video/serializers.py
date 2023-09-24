@@ -36,6 +36,6 @@ class ProductStatSerializer(serializers.ModelSerializer):
     # Процент приобретения продукта
     def get_purchase_percentage(self, obj):
         total_users = User.objects.count()
-        num_accesses = obj.accesses.count()
+        num_accesses = obj.access_users.count()
         purchase_percentage = (num_accesses / total_users) * 100
         return purchase_percentage

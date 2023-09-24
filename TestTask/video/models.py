@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 class Product(models.Model):
     name = models.CharField(max_length=50)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    # Доступ к продукту
+    access_users = models.ManyToManyField(User, related_name='products_accesed', blank=True) 
 
 class Lesson(models.Model):
     title = models.CharField(max_length=255)
