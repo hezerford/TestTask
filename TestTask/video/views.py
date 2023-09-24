@@ -1,8 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404
+
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
-from .models import LessonView
-from .serializers import LessonViewSerializer
+
+from .models import *
+from .serializers import *
 
 class LessonViewListAPIView(generics.ListAPIView):
     serializer_class = LessonViewSerializer
@@ -26,9 +28,20 @@ class LessonViewByProductListAPIView(generics.ListAPIView):
         return queryset
     
 class ProductStatListAPIView(generics.ListAPIView):
-    generics_class = ProductStatSerializer
+    serializer_class = ProductStatSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         products = Product.objects.all()
         return products
+
+class ProductStatDetailAPIView(generics.RetrieveAPIView):
+    serializer_class = ProductStatSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Product.objects.all()
+
+    def get_object(self):
+        product_id = self.kwargs.get('pk')
+        return get_object_or_404(self.get_queryset(), pk=product_id)
